@@ -1,0 +1,11 @@
+/* 
+  Welcome.strings
+  counterApp
+
+  Created by Juan Camilo on 3/12/20.
+  
+*/
+
+"continue"   = "Continue";
+"title"      = " Welcome to\nCounters";
+"title_word" = "Counters";
