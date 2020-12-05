@@ -1,0 +1,12 @@
+/* 
+  CounterCreate.strings
+  counterApp
+
+  Created by Juan Camilo on 4/12/20.
+  
+*/
+
+"title" = "Create a counter";
+"examples" = "Give it a name. Creative block? See examples.";
+"cancel" = "Cancel";
+"save" = "Save";

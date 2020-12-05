@@ -18,13 +18,19 @@ class MainCoordinator: Coordinator {
     
     func welcome() {
         let vc = WelcomeViewController()
-        let viewModel = WelcomeViewModel()
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
     
     func goToCounters() {
         let vc = CountersViewController()
+        vc.viewModel = CountersViewModel()
+        vc.coordinator = self
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func goToCounterCreate() {
+        let vc = CreateCounterViewController()
         navigationController.pushViewController(vc, animated: true)
     }
 }

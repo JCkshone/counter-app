@@ -213,7 +213,6 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="gUD-zI-j5K" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="68" id="H6G-fc-Fo3"/>
-                <constraint firstItem="gUD-zI-j5K" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="175:463" id="J5R-y3-87T"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="whs-er-Dp6" secondAttribute="bottom" constant="32" id="K8q-oh-EBr"/>
                 <constraint firstItem="1OI-Hn-1rp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="39" id="RYE-q4-2Ve"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UE4-Rj-xI2" secondAttribute="trailing" constant="39" id="RhG-Vj-QdM"/>

@@ -10,8 +10,7 @@ import Foundation
 extension String {
     
     public func localized(usingFile fileName: String) -> String {
-        
-        return localized(usingFile: fileName, withComment: "")
+        localized(usingFile: fileName, withComment: "")
     }
 
     public func localized(usingFile fileName: String, bundleLanguage: String? = nil, withComment comment: String) -> String {
