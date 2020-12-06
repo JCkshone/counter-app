@@ -31,6 +31,17 @@ class MainCoordinator: Coordinator {
     
     func goToCounterCreate() {
         let vc = CreateCounterViewController()
+        vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func goToCounterExample() {
+        let vc = CreateCounterExampleViewController()
+        vc.coordinator = self
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func goBack() {
+        navigationController.popViewController(animated: true)
     }
 }

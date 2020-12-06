@@ -12,6 +12,12 @@ protocol BaseViewControllerDelegate {
     func rightBarItemTapped()
 }
 
+enum NavigationItemType {
+    case counters
+    case countersEdit
+    case createCounters
+}
+
 class BaseViewController: UIViewController {
     
     var barTitle = "" {
@@ -23,6 +29,16 @@ class BaseViewController: UIViewController {
     var showNavigationItem = false {
         didSet {
             self.navigationItem.hidesBackButton = !showNavigationItem
+        }
+    }
+    
+    var showLargeTitles = true {
+        didSet {
+            DispatchQueue.main.async {
+                self.navigationItem.largeTitleDisplayMode = self.showLargeTitles ? .always : .never
+                self.navigationController?.navigationBar.prefersLargeTitles = self.showLargeTitles
+            }
+            
         }
     }
     
@@ -39,36 +55,60 @@ class BaseViewController: UIViewController {
         search.searchBar.sizeToFit()
         search.obscuresBackgroundDuringPresentation = false
         search.hidesNavigationBarDuringPresentation = true
+        search.searchBar.sizeToFit()
         
-        navigationItem.largeTitleDisplayMode = .always
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = search
         navigationItem.hidesSearchBarWhenScrolling = false
-        search.searchBar.sizeToFit()
+        
         definesPresentationContext = true
     }
 }
 
 extension BaseViewController {
-    func setEditItemsBar(isEdit: Bool, rightAvailable: Bool = false, leftAvailable: Bool = false) {
-        let edit = CounterConstants.Counters.edit.localized(usingFile: StringFiles.counters)
+    
+    /// Set navigation items
+    func setActions(for type: NavigationItemType, availableActions: Bool = true) {
+        switch type {
+        case .counters:
+            setCounterItemsBar(isAvailable: availableActions)
+        case .countersEdit:
+            serCounterEditItemsBar()
+        case .createCounters:
+            setCreateItemsBar()
+        }
+    }
+    
+    func serCounterEditItemsBar() {
         let done = CounterConstants.Counters.done.localized(usingFile: StringFiles.counters)
         let selectAll = CounterConstants.Counters.selectAll.localized(usingFile: StringFiles.counters)
-        let lefItem = UIBarButtonItem().getBarItem(title: isEdit ? done : edit,
+        setItemsBar(rightAvailable: true, leftAvailable: true, leftItemTitle: done, rightItemTitle: selectAll)
+    }
+    
+    private func setCounterItemsBar(isAvailable: Bool) {
+        let edit = CounterConstants.Counters.edit.localized(usingFile: StringFiles.counters)
+        setItemsBar(leftAvailable: true, leftItemTitle: isAvailable ? edit : "" )
+       
+    }
+    private func setCreateItemsBar() {
+        let cancel = CounterConstants.CounterCreate.cancel.localized(usingFile: StringFiles.counterCrete)
+        let save = CounterConstants.CounterCreate.save.localized(usingFile: StringFiles.counterCrete)
+        setItemsBar(rightAvailable: true, leftAvailable: true, leftItemTitle: cancel, rightItemTitle: save)
+    }
+    
+    private func setItemsBar(rightAvailable: Bool = false, leftAvailable: Bool = false, leftItemTitle: String = "", rightItemTitle: String = "") {
+        
+        let lefItem = UIBarButtonItem().getBarItem(title: leftItemTitle,
                                                    isAvailable: leftAvailable,
                                                    target: self,
                                                    action: #selector(leftOnClick))
         
-        if isEdit {
-            let rightItem = UIBarButtonItem().getBarItem(title: selectAll,
-                                                         isAvailable: rightAvailable,
-                                                         target: self,
-                                                         action: #selector(rightOnClick))
-            self.navigationItem.setRightBarButton(rightItem, animated: true)
-        } else {
-            self.navigationItem.setRightBarButton(UIBarButtonItem(), animated: true)
-        }
-        self.navigationItem.setLeftBarButton(lefItem, animated: true)
+        let rightItem = UIBarButtonItem().getBarItem(title: rightItemTitle,
+                                                     isAvailable: rightAvailable,
+                                                     target: self,
+                                                     action: #selector(rightOnClick))
+        
+        self.navigationItem.setLeftBarButton(!leftItemTitle.isEmpty ? lefItem : UIBarButtonItem(), animated: true)
+        self.navigationItem.setRightBarButton(!rightItemTitle.isEmpty ? rightItem : UIBarButtonItem(), animated: true)
     }
     
     @objc func rightOnClick() {

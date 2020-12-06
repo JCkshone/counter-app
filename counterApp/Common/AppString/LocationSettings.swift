@@ -10,7 +10,7 @@ import Foundation
 struct StringFiles {
     static let welcome = "Welcome"
     static let counters = "Counters"
-    static let counterCrete = "CounterCrete"
+    static let counterCrete = "CounterCreate"
 }
 enum CounterLanguage: String {
     case en = "en"

@@ -15,4 +15,13 @@ extension UIButton {
         self.layer.shadowColor = UIColor.shadow.cgColor
         self.layer.cornerRadius = radius
     }
+    
+    func setTitleWidthUndelineWords(title: String, underlineWords: String, color: UIColor = .darkSilver) {
+        let range = (title as NSString).range(of: underlineWords)
+        let attributedText = NSMutableAttributedString.init(string: title)
+        
+        attributedText.addAttribute(.underlineStyle, value: 1, range: range)
+        self.setAttributedTitle(attributedText, for: .normal)
+        self.setTitleColor(color, for: .normal)
+    }
 }

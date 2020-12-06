@@ -22,6 +22,15 @@
 		494D7A3D257B1B6A00F664B2 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 494D7A3C257B1B6A00F664B2 /* Icons.xcassets */; };
 		494D7A62257B409F00F664B2 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494D7A61257B409F00F664B2 /* ResultView.swift */; };
 		494D7A6A257B40B500F664B2 /* ResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 494D7A69257B40B500F664B2 /* ResultView.xib */; };
+		49B5FF86257D35E2001AD061 /* CreateCounterExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B5FF84257D35E2001AD061 /* CreateCounterExampleViewController.swift */; };
+		49B5FF87257D35E2001AD061 /* CreateCounterExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B5FF85257D35E2001AD061 /* CreateCounterExampleViewController.xib */; };
+		49B5FFA6257D38B4001AD061 /* CounterCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B5FFA4257D38B4001AD061 /* CounterCollectionTableViewCell.swift */; };
+		49B5FFA7257D38B4001AD061 /* CounterCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B5FFA5257D38B4001AD061 /* CounterCollectionTableViewCell.xib */; };
+		49B5FFB0257D38E4001AD061 /* CounterExampleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B5FFAE257D38E4001AD061 /* CounterExampleCollectionViewCell.swift */; };
+		49B5FFB1257D38E4001AD061 /* CounterExampleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B5FFAF257D38E4001AD061 /* CounterExampleCollectionViewCell.xib */; };
+		49B5FFB6257D4CDC001AD061 /* UICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B5FFB5257D4CDC001AD061 /* UICollectionViewCell.swift */; };
+		49B5FFBB257D5250001AD061 /* CounterExampleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B5FFBA257D5250001AD061 /* CounterExampleModel.swift */; };
+		49B5FFC0257D5422001AD061 /* CreateCounterExampleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B5FFBF257D5422001AD061 /* CreateCounterExampleViewModel.swift */; };
 		49F557362578A89B0036F1D2 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F557342578A89B0036F1D2 /* WelcomeViewController.swift */; };
 		49F557372578A89B0036F1D2 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F557352578A89B0036F1D2 /* WelcomeViewController.xib */; };
 		49F557572578ACC60036F1D2 /* SF-Pro-Display-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49F557482578ACC60036F1D2 /* SF-Pro-Display-Heavy.otf */; };
@@ -95,6 +104,15 @@
 		494D7A3C257B1B6A00F664B2 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		494D7A61257B409F00F664B2 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		494D7A69257B40B500F664B2 /* ResultView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultView.xib; sourceTree = "<group>"; };
+		49B5FF84257D35E2001AD061 /* CreateCounterExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCounterExampleViewController.swift; sourceTree = "<group>"; };
+		49B5FF85257D35E2001AD061 /* CreateCounterExampleViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateCounterExampleViewController.xib; sourceTree = "<group>"; };
+		49B5FFA4257D38B4001AD061 /* CounterCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCollectionTableViewCell.swift; sourceTree = "<group>"; };
+		49B5FFA5257D38B4001AD061 /* CounterCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CounterCollectionTableViewCell.xib; sourceTree = "<group>"; };
+		49B5FFAE257D38E4001AD061 /* CounterExampleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterExampleCollectionViewCell.swift; sourceTree = "<group>"; };
+		49B5FFAF257D38E4001AD061 /* CounterExampleCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CounterExampleCollectionViewCell.xib; sourceTree = "<group>"; };
+		49B5FFB5257D4CDC001AD061 /* UICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCell.swift; sourceTree = "<group>"; };
+		49B5FFBA257D5250001AD061 /* CounterExampleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterExampleModel.swift; sourceTree = "<group>"; };
+		49B5FFBF257D5422001AD061 /* CreateCounterExampleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCounterExampleViewModel.swift; sourceTree = "<group>"; };
 		49F557342578A89B0036F1D2 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		49F557352578A89B0036F1D2 /* WelcomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
 		49F557482578ACC60036F1D2 /* SF-Pro-Display-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Heavy.otf"; sourceTree = "<group>"; };
@@ -239,6 +257,7 @@
 		493416FB25789AD600FD57FF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				49B5FF83257D3591001AD061 /* CreateCounterExample */,
 				494D7A24257AF92000F664B2 /* CreateCounter */,
 				49FFAF11257949B700808421 /* Counters */,
 				49F5572E2578A86B0036F1D2 /* Welcome */,
@@ -282,6 +301,29 @@
 			path = ResultView;
 			sourceTree = "<group>";
 		};
+		49B5FF83257D3591001AD061 /* CreateCounterExample */ = {
+			isa = PBXGroup;
+			children = (
+				49B5FF8E257D36F9001AD061 /* Cells */,
+				49B5FF84257D35E2001AD061 /* CreateCounterExampleViewController.swift */,
+				49B5FF85257D35E2001AD061 /* CreateCounterExampleViewController.xib */,
+				49B5FFBA257D5250001AD061 /* CounterExampleModel.swift */,
+				49B5FFBF257D5422001AD061 /* CreateCounterExampleViewModel.swift */,
+			);
+			path = CreateCounterExample;
+			sourceTree = "<group>";
+		};
+		49B5FF8E257D36F9001AD061 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				49B5FFA4257D38B4001AD061 /* CounterCollectionTableViewCell.swift */,
+				49B5FFA5257D38B4001AD061 /* CounterCollectionTableViewCell.xib */,
+				49B5FFAE257D38E4001AD061 /* CounterExampleCollectionViewCell.swift */,
+				49B5FFAF257D38E4001AD061 /* CounterExampleCollectionViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		49F5572E2578A86B0036F1D2 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +362,7 @@
 				49FFAF0C2579493E00808421 /* UIControl.swift */,
 				49FFAF2D2579C08900808421 /* UIBarButtonItem.swift */,
 				49FFAF382579DD2F00808421 /* UITableViewCell.swift */,
+				49B5FFB5257D4CDC001AD061 /* UICollectionViewCell.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -482,14 +525,17 @@
 				49FFAEF02579426200808421 /* Welcome.strings in Resources */,
 				493416C925774ED700FD57FF /* Assets.xcassets in Resources */,
 				49FFAF402579DD6000808421 /* CounterTableViewCell.xib in Resources */,
+				49B5FFB1257D38E4001AD061 /* CounterExampleCollectionViewCell.xib in Resources */,
 				49F5576C2578ACD60036F1D2 /* SF-Pro-Display-UltralightItalic.otf in Resources */,
 				49FFAF15257949CE00808421 /* CountersViewController.xib in Resources */,
 				49F5576D2578ACD60036F1D2 /* SF-Pro-Display-RegularItalic.otf in Resources */,
 				49F557612578ACC70036F1D2 /* SF-Pro-Display-Medium.otf in Resources */,
 				494D7A3D257B1B6A00F664B2 /* Icons.xcassets in Resources */,
 				49FFAF262579BC3F00808421 /* Counters.strings in Resources */,
+				49B5FFA7257D38B4001AD061 /* CounterCollectionTableViewCell.xib in Resources */,
 				49F557632578ACC70036F1D2 /* SF-Pro-Display-Thin.otf in Resources */,
 				49F5575A2578ACC60036F1D2 /* SF-Pro-Display-Bold.otf in Resources */,
+				49B5FF87257D35E2001AD061 /* CreateCounterExampleViewController.xib in Resources */,
 				494D7A6A257B40B500F664B2 /* ResultView.xib in Resources */,
 				49F557592578ACC60036F1D2 /* SF-Pro-Display-Regular.otf in Resources */,
 				49F5575B2578ACC60036F1D2 /* SF-Pro-Display-Light.otf in Resources */,
@@ -525,20 +571,26 @@
 			files = (
 				493416C025774ED600FD57FF /* AppDelegate.swift in Sources */,
 				49F557B12578B7110036F1D2 /* Localized.swift in Sources */,
+				49B5FFC0257D5422001AD061 /* CreateCounterExampleViewModel.swift in Sources */,
 				494D7A62257B409F00F664B2 /* ResultView.swift in Sources */,
 				49FFAF052579477F00808421 /* UILabel.swift in Sources */,
 				49F557892578B25D0036F1D2 /* UIColor.swift in Sources */,
 				49FFAF2E2579C08900808421 /* UIBarButtonItem.swift in Sources */,
+				49B5FFB6257D4CDC001AD061 /* UICollectionViewCell.swift in Sources */,
+				49B5FF86257D35E2001AD061 /* CreateCounterExampleViewController.swift in Sources */,
+				49B5FFBB257D5250001AD061 /* CounterExampleModel.swift in Sources */,
 				49FFAF392579DD2F00808421 /* UITableViewCell.swift in Sources */,
 				49FFAEF5257942D100808421 /* LocationSettings.swift in Sources */,
 				494D7A20257AD70600F664B2 /* CounterModel.swift in Sources */,
 				49F557362578A89B0036F1D2 /* WelcomeViewController.swift in Sources */,
 				49FFAF0D2579493E00808421 /* UIControl.swift in Sources */,
+				49B5FFB0257D38E4001AD061 /* CounterExampleCollectionViewCell.swift in Sources */,
 				49FFAEEB25793E3200808421 /* UIButton.swift in Sources */,
 				4934170F25789C2D00FD57FF /* MainCoordinator.swift in Sources */,
 				49FFAF3F2579DD6000808421 /* CounterTableViewCell.swift in Sources */,
 				4934170125789BBC00FD57FF /* Coodinator.swift in Sources */,
 				49FFAEE62579385900808421 /* UIView.swift in Sources */,
+				49B5FFA6257D38B4001AD061 /* CounterCollectionTableViewCell.swift in Sources */,
 				49FFAEFB2579441500808421 /* CounterConstants.swift in Sources */,
 				49FFAF1E25794DE400808421 /* BaseViewController.swift in Sources */,
 				49FFAF332579DC2300808421 /* CountersViewModel.swift in Sources */,

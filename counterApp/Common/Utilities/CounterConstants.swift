@@ -33,6 +33,8 @@ struct CounterConstants {
         static let examples = "examples"
         static let cancel = "cancel"
         static let save = "save"
+        static let counterPlaceholder = "counter_placeholder"
+        static let underlineExamples = "underline_examples"
     }
     
     struct View {

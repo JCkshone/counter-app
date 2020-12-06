@@ -7,11 +7,6 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="SF-Pro-Display-HeavyItalic.otf">
-            <string>SFProDisplay-HeavyItalic</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -22,27 +17,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo" translatesAutoresizingMaskIntoConstraints="NO" id="y8G-pS-E6P">
-                                <rect key="frame" x="132" y="287.5" width="150" height="150"/>
+                                <rect key="frame" x="132" y="378" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="0PC-Un-ZAE"/>
                                     <constraint firstAttribute="width" constant="150" id="nlp-sg-igd"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Counter app" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Jt-5X-YTX">
-                                <rect key="frame" x="32" y="469.5" width="350" height="26.5"/>
-                                <fontDescription key="fontDescription" name="SFProDisplay-HeavyItalic" family="SF Pro Display" pointSize="22"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="y8G-pS-E6P" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="6Vg-lY-jak"/>
-                            <constraint firstItem="2Jt-5X-YTX" firstAttribute="top" secondItem="y8G-pS-E6P" secondAttribute="bottom" constant="32" id="9Mj-pr-qjV"/>
-                            <constraint firstItem="y8G-pS-E6P" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.8" id="DK8-iy-fVG"/>
-                            <constraint firstItem="2Jt-5X-YTX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="s8g-2A-yeP"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2Jt-5X-YTX" secondAttribute="trailing" constant="32" id="whb-w4-830"/>
+                            <constraint firstItem="y8G-pS-E6P" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="DK8-iy-fVG"/>
                         </constraints>
                     </view>
                 </viewController>

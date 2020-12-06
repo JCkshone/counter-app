@@ -37,6 +37,7 @@ class CountersViewController: BaseViewController {
         self.refreshControl = UIRefreshControl()
         self.showNavigationItem = false
         self.delegate = self
+        self.showLargeTitles = true
         
         setupView()
         setupSearchBar(self)
@@ -44,6 +45,11 @@ class CountersViewController: BaseViewController {
         setupEvents()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.showLargeTitles = true
+    }
+
 }
 
 extension CountersViewController {
@@ -65,7 +71,7 @@ extension CountersViewController {
         }
         
         shareBtn.addAction(for: .touchUpInside) {
-            self.showShareActivity()
+            self.showShareActivity(title: "")
         }
         
         resultView.itemBtn.addAction(for: .touchUpInside) {
@@ -84,7 +90,7 @@ extension CountersViewController {
         viewModel?.loadComplete = { [weak self] response in
             guard let self = self else { return }
             self.tableView.reloadData()
-            self.setEditItemsBar(isEdit: false, leftAvailable: !(self.viewModel?.counters ?? []).isEmpty)
+            self.setActions(for: .counters, availableActions: !(self.viewModel?.counters ?? []).isEmpty)
             self.validateReponse(from: response)
         }
         
@@ -149,9 +155,7 @@ extension CountersViewController {
         contentInfoAdd.isHidden = tableViewMode == .edit
         contentEditActions.isHidden = tableViewMode == .normal
         tableView.reloadData()
-        self.setEditItemsBar(isEdit: tableViewMode == .edit,
-                             rightAvailable: tableViewMode == .edit,
-                             leftAvailable: true)
+        self.setActions(for: tableViewMode == .edit ? .countersEdit : .counters)
     }
 }
 
@@ -160,7 +164,6 @@ extension CountersViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
     }
 }
-
 
 // MARK: - Table view events
 extension CountersViewController: UITableViewDelegate, UITableViewDataSource {
@@ -178,6 +181,7 @@ extension CountersViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - Navigation item delegate
 extension CountersViewController: BaseViewControllerDelegate {
     func leftBarItemTapped() {
         isSelectAllItems = false

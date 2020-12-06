@@ -10,3 +10,5 @@
 "examples" = "Give it a name. Creative block? See examples.";
 "cancel" = "Cancel";
 "save" = "Save";
+"counter_placeholder" = "Cups of coffee";
+"underline_examples" = "examples.";
