@@ -9,6 +9,15 @@ import Foundation
 import UIKit
 
 struct CounterConstants {
+    
+    struct Url {
+        struct Path {
+            static let counters = "counters"
+            static let counter = "counter"
+            static let inc = "inc"
+            static let dec = "dec"
+        }
+    }
     struct Welcome {
         static let continueText = "continue"
         static let titleWord = "title_word"
@@ -37,6 +46,11 @@ struct CounterConstants {
         static let underlineExamples = "underline_examples"
     }
     
+    struct CreateCounterExample {
+        static let title = "title"
+        static let create = "create"
+    }
+    
     struct View {
         struct CounterCell {
             static let leadingDefault: CGFloat = 16
@@ -46,6 +60,10 @@ struct CounterConstants {
         struct ResultView {
             static let defaultWidthBtn: CGFloat = 150
             static let retryWidthBtn: CGFloat = 75
+        }
+        
+        struct CreateCounterExample {
+            static let borderHeight: CGFloat = 0.2
         }
     }
     

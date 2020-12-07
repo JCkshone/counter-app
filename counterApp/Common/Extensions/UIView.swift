@@ -18,4 +18,11 @@ extension UIView {
         self.layer.borderWidth = 1
         self.layer.borderColor = color.cgColor
     }
+    
+    func addBorderBottom(color: UIColor = .darkOpacity) {
+        let bottomBorder = CALayer()
+        bottomBorder.frame = CGRect(x:0, y: self.frame.size.height - CounterConstants.View.CreateCounterExample.borderHeight, width: self.frame.size.width, height: CounterConstants.View.CreateCounterExample.borderHeight)
+        bottomBorder.backgroundColor = color.cgColor
+        self.layer.addSublayer(bottomBorder)
+    }
 }

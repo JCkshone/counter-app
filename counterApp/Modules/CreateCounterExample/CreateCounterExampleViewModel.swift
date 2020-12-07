@@ -23,18 +23,21 @@ class CreateCounterExampleViewModel: ICreateCounterExampleViewModel {
     
     func doLoadExamples() {
         counterExamples.append(CounterExample(id: UUID().uuidString,
-                                              title: "Drinks", examples: [Example(name: "Cups of coffee"),
-                                                                          Example(name: "Glasses of water"),
-                                                                          Example(name: "Watter")]))
+                                              title: "Drinks",
+                                              examples: [Example(name: "Cups of coffee"),
+                                                         Example(name: "Glasses of water"),
+                                                         Example(name: "Watter")]))
         counterExamples.append(CounterExample(id: UUID().uuidString,
-                                              title: "Food", examples: [Example(name: "Hot-dogs"),
-                                                                        Example(name: "Cupcakes eaten"),
-                                                                        Example(name: "Chicken")]))
+                                              title: "Food",
+                                              examples: [Example(name: "Hot-dogs"),
+                                                         Example(name: "Cupcakes eaten"),
+                                                         Example(name: "Chicken")]))
         
         counterExamples.append(CounterExample(id: UUID().uuidString,
-                                              title: "Misc", examples: [Example(name: "Times sneezed"),
-                                                                        Example(name: "Naps"),
-                                                                        Example(name: "Day dreaming")]))
+                                              title: "Misc",
+                                              examples: [Example(name: "Times sneezed"),
+                                                         Example(name: "Naps"),
+                                                         Example(name: "Day dreaming")]))
         loadComplete?()
     }
     

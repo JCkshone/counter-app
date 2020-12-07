@@ -32,12 +32,14 @@ class MainCoordinator: Coordinator {
     func goToCounterCreate() {
         let vc = CreateCounterViewController()
         vc.coordinator = self
+        vc.counterViewModel = CountersViewModel()
         navigationController.pushViewController(vc, animated: true)
     }
     
     func goToCounterExample() {
         let vc = CreateCounterExampleViewController()
         vc.coordinator = self
+        vc.viewModel = CreateCounterExampleViewModel()
         navigationController.pushViewController(vc, animated: true)
     }
     

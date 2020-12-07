@@ -20,13 +20,20 @@ enum NavigationItemType {
 
 class BaseViewController: UIViewController {
     
-    var barTitle = "" {
+    lazy var barTitle = "" {
         didSet {
-            self.navigationItem.title = barTitle;
+            self.title = barTitle
         }
     }
     
-    var showNavigationItem = false {
+    lazy var backButtonTitle = "" {
+        didSet {
+            self.navigationController?.navigationBar.topItem?.title = backButtonTitle
+            self.navigationController?.navigationBar.tintColor = .primaryOrange
+        }
+    }
+    
+    lazy var showNavigationItem = false {
         didSet {
             self.navigationItem.hidesBackButton = !showNavigationItem
         }
@@ -42,7 +49,7 @@ class BaseViewController: UIViewController {
         }
     }
     
-    var delegate: BaseViewControllerDelegate?
+    lazy var delegate: BaseViewControllerDelegate? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +81,7 @@ extension BaseViewController {
         case .countersEdit:
             serCounterEditItemsBar()
         case .createCounters:
-            setCreateItemsBar()
+            setCreateItemsBar(isCreateMode: availableActions)
         }
     }
     
@@ -86,13 +93,13 @@ extension BaseViewController {
     
     private func setCounterItemsBar(isAvailable: Bool) {
         let edit = CounterConstants.Counters.edit.localized(usingFile: StringFiles.counters)
-        setItemsBar(leftAvailable: true, leftItemTitle: isAvailable ? edit : "" )
+        setItemsBar(leftAvailable: isAvailable, leftItemTitle: edit)
        
     }
-    private func setCreateItemsBar() {
+    private func setCreateItemsBar(isCreateMode: Bool) {
         let cancel = CounterConstants.CounterCreate.cancel.localized(usingFile: StringFiles.counterCrete)
         let save = CounterConstants.CounterCreate.save.localized(usingFile: StringFiles.counterCrete)
-        setItemsBar(rightAvailable: true, leftAvailable: true, leftItemTitle: cancel, rightItemTitle: save)
+        setItemsBar(rightAvailable: isCreateMode, leftAvailable: true, leftItemTitle: cancel, rightItemTitle: save)
     }
     
     private func setItemsBar(rightAvailable: Bool = false, leftAvailable: Bool = false, leftItemTitle: String = "", rightItemTitle: String = "") {

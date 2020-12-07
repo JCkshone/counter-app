@@ -16,6 +16,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateCounterViewController" customModule="counterApp" customModuleProvider="target">
             <connections>
                 <outlet property="counterHelp" destination="lSE-t1-Hgj" id="ZVI-z7-SQX"/>
+                <outlet property="loader" destination="gP4-i5-ebS" id="LGD-B3-RWS"/>
                 <outlet property="textField" destination="7aA-8h-bog" id="dTA-t5-Qnr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -29,14 +30,22 @@
                     <rect key="frame" x="12" y="69" width="390" height="55"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7aA-8h-bog">
-                            <rect key="frame" x="17" y="18.5" width="356" height="18.5"/>
+                            <rect key="frame" x="17" y="18.5" width="333" height="18.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <action selector="changeTextField:" destination="-1" eventType="editingChanged" id="Ebq-8f-kUU"/>
+                            </connections>
                         </textField>
+                        <activityIndicatorView opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="gP4-i5-ebS">
+                            <rect key="frame" x="354" y="17.5" width="20" height="20"/>
+                        </activityIndicatorView>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="7aA-8h-bog" secondAttribute="trailing" constant="17" id="JI1-Ui-Oyv"/>
+                        <constraint firstAttribute="trailing" secondItem="gP4-i5-ebS" secondAttribute="trailing" constant="16" id="1gW-hs-iMv"/>
+                        <constraint firstAttribute="trailing" secondItem="7aA-8h-bog" secondAttribute="trailing" constant="40" id="JI1-Ui-Oyv"/>
+                        <constraint firstItem="gP4-i5-ebS" firstAttribute="centerY" secondItem="zQL-ji-v8k" secondAttribute="centerY" id="OGG-aY-OES"/>
                         <constraint firstItem="7aA-8h-bog" firstAttribute="centerY" secondItem="zQL-ji-v8k" secondAttribute="centerY" id="S8M-Rg-Shn"/>
                         <constraint firstAttribute="height" constant="55" id="rRY-pd-lh1"/>
                         <constraint firstItem="7aA-8h-bog" firstAttribute="leading" secondItem="zQL-ji-v8k" secondAttribute="leading" constant="17" id="vcT-l3-ojO"/>

@@ -9,7 +9,11 @@ import Foundation
 
 /// Counter model
 struct Counter: Codable {
-    let id: String
-    let title: String
-    let count: Int
+    var id: String? = nil
+    var title: String? = nil
+    var count: Int? = nil
+}
+
+struct CounterRequest: Codable {
+    var title: String
 }

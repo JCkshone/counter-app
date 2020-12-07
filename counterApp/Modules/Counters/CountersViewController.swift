@@ -89,9 +89,7 @@ extension CountersViewController {
         
         viewModel?.loadComplete = { [weak self] response in
             guard let self = self else { return }
-            self.tableView.reloadData()
-            self.setActions(for: .counters, availableActions: !(self.viewModel?.counters ?? []).isEmpty)
-            self.validateReponse(from: response)
+            self.reloadView(response)
         }
         
         viewModel?.dismissLoading = { [weak self] in
@@ -99,7 +97,19 @@ extension CountersViewController {
             self.tableView.isUserInteractionEnabled = true
             self.refreshControl.endRefreshing()
         }
-        viewModel?.doLoadCounter()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.viewModel?.doLoadCounter()
+        }
+    }
+    
+    func reloadView(_ response: LoadResponse) {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.setActions(for: .counters, availableActions: !(self.viewModel?.counters ?? []).isEmpty)
+            self.validateReponse(from: response)
+        }
+
     }
 }
 
@@ -174,7 +184,7 @@ extension CountersViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cellView = tableView.dequeueReusableCell(withIdentifier: cell.identifier, for: indexPath) as? cell, let vm = viewModel else { return UITableViewCell()}
         cellView.descriptionItem.text = vm.counters[indexPath.row].title
-        cellView.quantity.text = "\(vm.counters[indexPath.row].count)"
+        cellView.quantity.text = "\(vm.counters[indexPath.row].count ?? 0)"
         cellView.isEditMode = tableViewMode == .edit
         cellView.isItemSelect = isSelectAllItems
         return cellView

@@ -11,6 +11,7 @@ struct StringFiles {
     static let welcome = "Welcome"
     static let counters = "Counters"
     static let counterCrete = "CounterCreate"
+    static let createCounterExample = "CreateCounterExample"
 }
 enum CounterLanguage: String {
     case en = "en"

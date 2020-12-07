@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   Configuration.plist
+   counterApp
+
+   Created by Juan Camilo on 7/12/20.
+   Copyright (c) 2020 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+    <dict>
+        <key>Production</key>
+        <dict>
+            <key>BASE_URL</key>
+            <string></string>
+        </dict>
+        <key>Development</key>
+        <dict>
+            <key>BASE_URL</key>
+            <string>http://192.168.50.65:3000/api/v1</string>
+        </dict>
+    </dict>
+</plist>

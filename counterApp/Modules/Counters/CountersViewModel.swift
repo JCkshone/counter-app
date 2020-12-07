@@ -17,8 +17,10 @@ protocol ICountersViewModel: class {
     var counters: [Counter] { get }
     var loadComplete: ((LoadResponse) -> ())? { get set }
     var dismissLoading: (()->())? { get set }
+    
     func doLoadCounter()
     func reloadCounters()
+    func doCreateCounter(counter:  CounterRequest)
 }
 
 class CountersViewModel: ICountersViewModel {
@@ -26,24 +28,19 @@ class CountersViewModel: ICountersViewModel {
     var dismissLoading: (() -> ())?
     var counters: [Counter]
     var loadComplete: ((LoadResponse) -> ())?
+    var manager: ICountersManager
     
-    init() {
+    init(manager: ICountersManager = CountersManager()) {
+        self.manager = manager
         counters = []
     }
     
     func doLoadCounter() {
-        var items: [Counter] = []
-        items.append(Counter(id: "", title: "Records played", count: 20))
-        items.append(Counter(id: "", title: "Records played", count: 10))
-        items.append(Counter(id: "", title: "Number of times I’ve forgotten my mother’s name because I was high on Frugelés.", count: 2))
-        items.append(Counter(id: "", title: "Records played", count: 2))
-        items.append(Counter(id: "", title: "Records played", count: 3))
-        items.append(Counter(id: "", title: "Number of times I’ve forgotten my mother’s name because I was high on Frugelés.", count: 2))
-        items.append(Counter(id: "", title: "Number of times I’ve forgotten my mother’s name because I was high on Frugelés.Number of times I’ve forgotten my mother’s name because I was high on Frugelés.", count: 2))
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.counters = items
-            self.loadComplete?(.success)
+        manager.getAllCounters { counters in
+            self.counters = counters.filter { !($0.title ?? "").isEmpty }
+            self.loadComplete?(counters.isEmpty ? .empty : .success)
+        } onError: { error in
+            self.loadComplete?(.error)
         }
     }
     
@@ -52,4 +49,14 @@ class CountersViewModel: ICountersViewModel {
             self.dismissLoading?()
         }
     }
+    
+    func doCreateCounter(counter: CounterRequest) {
+        manager.createCounter(counter: counter) { response in
+            self.loadComplete?(response ? .success : .error)
+        } onError: { error in
+            self.loadComplete?(.error)
+        }
+
+    }
+    
 }

@@ -8,8 +8,8 @@
 import Foundation
 
 struct CounterExample: Codable {
-    var id: String
-    var title: String
+    var id: String? = nil
+    var title: String? = nil
     var examples: [Example]
 }
 
