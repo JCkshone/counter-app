@@ -36,6 +36,13 @@ class CounterTableViewCell: UITableViewCell {
         }
     }
     
+    var model: Counter = Counter() {
+        didSet {
+            descriptionItem.text = model.title
+            quantity.text = "\(model.count ?? 0)"
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         quantity.textColor = .primaryOrange

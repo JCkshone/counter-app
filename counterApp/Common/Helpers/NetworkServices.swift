@@ -17,6 +17,7 @@ public enum APIServiceError: Error {
 
 enum HttpMethod: String {
     case post = "POST"
+    case delete = "DELETE"
 }
 
 class NetworkServices {
@@ -55,7 +56,7 @@ class NetworkServices {
         }.resume()
     }
     
-    func createCounter(data: CounterRequest, aditionalPath: String, completion: @escaping (Result<[Counter], APIServiceError>) -> ()) {
+    func counterAction(data: CounterRequest, aditionalPath: String, httpMethod: HttpMethod = .post,completion: @escaping (Result<[Counter], APIServiceError>) -> ()) {
         self.aditionalPath = aditionalPath
         
         guard let url = baseUrl else {
@@ -67,7 +68,7 @@ class NetworkServices {
         
         var request = URLRequest(url: url)
         
-        request.httpMethod = HttpMethod.post.rawValue
+        request.httpMethod = httpMethod.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = jsonData

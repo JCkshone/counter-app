@@ -107,12 +107,10 @@ extension CountersViewController {
         
         viewModel?.dismissLoading = { [weak self] in
             guard let self = self else { return }
-            
             DispatchQueue.main.async {
                 self.tableView.isUserInteractionEnabled = true
                 self.refreshControl.endRefreshing()
             }
-            
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -208,10 +206,9 @@ extension CountersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cellView = tableView.dequeueReusableCell(withIdentifier: cell.identifier, for: indexPath) as? cell, let vm = viewModel else { return UITableViewCell()}
-        cellView.descriptionItem.text = vm.counters[indexPath.row].title
-        cellView.quantity.text = "\(vm.counters[indexPath.row].count ?? 0)"
         cellView.isEditMode = tableViewMode == .edit
         cellView.isItemSelect = isSelectAllItems
+        cellView.model = vm.counters[indexPath.row]
         return cellView
     }
 }
