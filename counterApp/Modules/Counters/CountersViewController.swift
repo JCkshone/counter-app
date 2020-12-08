@@ -30,6 +30,8 @@ class CountersViewController: BaseViewController {
     var tableViewMode: TableViewMode = .normal
     var isSelectAllItems: Bool = false
     
+    lazy var isErrorResponse = false
+    
     typealias cell = CounterTableViewCell
     
     override func viewDidLoad() {
@@ -48,11 +50,17 @@ class CountersViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.showLargeTitles = true
+        loadCounters()
     }
 
 }
 
 extension CountersViewController {
+    
+    func loadCounters() {
+        loader.isHidden = false
+        viewModel?.doLoadCounter()
+    }
     
     func validateReponse(from type: LoadResponse) {
         switch type {
@@ -63,6 +71,7 @@ extension CountersViewController {
         default:
             showError()
         }
+        setItemsInformation()
     }
     
     func setupEvents() {
@@ -74,8 +83,13 @@ extension CountersViewController {
             self.showShareActivity(title: "")
         }
         
-        resultView.itemBtn.addAction(for: .touchUpInside) {
-            self.coordinator?.goToCounterCreate()
+        resultView.itemBtn.addAction(for: .touchUpInside) { [weak self] in
+            guard let self = self else { return }
+            if !self.isErrorResponse {
+                self.coordinator?.goToCounterCreate()
+                return
+            }
+            self.loadCounters()
         }
         
         refreshControl.addAction(for: .valueChanged) {
@@ -84,7 +98,6 @@ extension CountersViewController {
             if self.tableViewMode == .edit {
                 self.changeTableViewMode()
             }
-            
         }
         
         viewModel?.loadComplete = { [weak self] response in
@@ -94,8 +107,12 @@ extension CountersViewController {
         
         viewModel?.dismissLoading = { [weak self] in
             guard let self = self else { return }
-            self.tableView.isUserInteractionEnabled = true
-            self.refreshControl.endRefreshing()
+            
+            DispatchQueue.main.async {
+                self.tableView.isUserInteractionEnabled = true
+                self.refreshControl.endRefreshing()
+            }
+            
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -104,12 +121,20 @@ extension CountersViewController {
     }
     
     func reloadView(_ response: LoadResponse) {
+        isErrorResponse = response == .error
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.setActions(for: .counters, availableActions: !(self.viewModel?.counters ?? []).isEmpty)
             self.validateReponse(from: response)
         }
-
+    }
+    
+    func setItemsInformation() {
+        guard let vm = viewModel else { return }
+        let valueItems = vm.counters.map { $0.count ?? 0 }
+        let message = CounterConstants.Counters.quantityItemsInformation.localized(usingFile: StringFiles.counters)
+        self.counterInfo.text = valueItems.isEmpty ? "" : String(format: message, valueItems.count, valueItems.reduce(0, +))
     }
 }
 

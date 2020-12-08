@@ -29,6 +29,7 @@ class CountersViewModel: ICountersViewModel {
     var counters: [Counter]
     var loadComplete: ((LoadResponse) -> ())?
     var manager: ICountersManager
+    var isReload = false
     
     init(manager: ICountersManager = CountersManager()) {
         self.manager = manager
@@ -39,15 +40,17 @@ class CountersViewModel: ICountersViewModel {
         manager.getAllCounters { counters in
             self.counters = counters.filter { !($0.title ?? "").isEmpty }
             self.loadComplete?(counters.isEmpty ? .empty : .success)
+            if self.isReload {
+                self.dismissLoading?()
+            }
         } onError: { error in
             self.loadComplete?(.error)
         }
     }
     
     func reloadCounters() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.dismissLoading?()
-        }
+        isReload = true
+        doLoadCounter()
     }
     
     func doCreateCounter(counter: CounterRequest) {
