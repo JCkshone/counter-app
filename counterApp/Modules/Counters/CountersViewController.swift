@@ -29,8 +29,10 @@ class CountersViewController: BaseViewController {
     var coordinator: MainCoordinator?
     var tableViewMode: TableViewMode = .normal
     var isSelectAllItems: Bool = false
+    var counterUpdate: Counter = Counter()
+    var isCounterDec: Bool = false
     
-    lazy var isErrorResponse = false
+    lazy var isErrorResponse: Bool = false
     
     typealias cell = CounterTableViewCell
     
@@ -52,7 +54,7 @@ class CountersViewController: BaseViewController {
         self.showLargeTitles = true
         loadCounters()
     }
-
+    
 }
 
 extension CountersViewController {
@@ -114,8 +116,40 @@ extension CountersViewController {
             }
         }
         
+        viewModel?.failedCounterUpdate = { [weak self] in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.loader.isHidden = true
+                self.showErrorUpdate()
+            }
+        }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.viewModel?.doLoadCounter()
+        }
+    }
+    
+    func showErrorUpdate() {
+        let title = CounterConstants.General.errorUpdate.localized(usingFile: StringFiles.general)
+        let messages = CounterConstants.General.errorConnection.localized(usingFile: StringFiles.general)
+        let retry = CounterConstants.Counters.retry.localized(usingFile: StringFiles.counters)
+        let quantity = isCounterDec ? (counterUpdate.count ?? 0) - 1 : (counterUpdate.count ?? 0) + 1
+        
+        showAlert(title: String(format: title, counterUpdate.title ?? "", quantity),
+                  messages: messages,
+                  successBtnTitle: retry,
+                  success:  { _ in
+                    self.loader.isHidden = false
+                    if self.isCounterDec {
+                        self.viewModel?.doDecrementCounter(counter: CounterRequest( id: self.counterUpdate.id))
+                        return
+                    }
+                    self.viewModel?.doIncrementCounter(counter: CounterRequest( id: self.counterUpdate.id))
+                  })
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
     
@@ -210,6 +244,18 @@ extension CountersViewController: UITableViewDelegate, UITableViewDataSource {
         cellView.isEditMode = tableViewMode == .edit
         cellView.isItemSelect = isSelectAllItems
         cellView.model = vm.counters[indexPath.row]
+        
+        cellView.stepperIncrement = { [unowned self] model in
+            self.counterUpdate = model
+            self.isCounterDec = false
+            self.viewModel?.doIncrementCounter(counter: CounterRequest(id: model.id ?? ""))
+        }
+        
+        cellView.stepperDecrement = { [unowned self] model in
+            self.isCounterDec = true
+            self.counterUpdate = model
+            self.viewModel?.doDecrementCounter(counter: CounterRequest(id: model.id ?? ""))
+        }
         return cellView
     }
 }

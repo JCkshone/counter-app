@@ -12,3 +12,4 @@
 "save" = "Save";
 "counter_placeholder" = "Cups of coffee";
 "underline_examples" = "examples.";
+"create_error" = "Couldn’t create the counter";

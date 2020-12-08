@@ -27,6 +27,8 @@
 		496BDEED257DF683002830CA /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BDEEC257DF683002830CA /* Configuration.swift */; };
 		496BDEF2257DF6DA002830CA /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 496BDEF1257DF6DA002830CA /* Configuration.plist */; };
 		496BDEFB257DFD2E002830CA /* CountersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BDEFA257DFD2D002830CA /* CountersManager.swift */; };
+		496BDF4A257F5862002830CA /* General.strings in Resources */ = {isa = PBXBuildFile; fileRef = 496BDF49257F5862002830CA /* General.strings */; };
+		496BDF4F257F5CD2002830CA /* UIAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BDF4E257F5CD2002830CA /* UIAlertAction.swift */; };
 		49B5FF86257D35E2001AD061 /* CreateCounterExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B5FF84257D35E2001AD061 /* CreateCounterExampleViewController.swift */; };
 		49B5FF87257D35E2001AD061 /* CreateCounterExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B5FF85257D35E2001AD061 /* CreateCounterExampleViewController.xib */; };
 		49B5FFA6257D38B4001AD061 /* CounterCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B5FFA4257D38B4001AD061 /* CounterCollectionTableViewCell.swift */; };
@@ -114,6 +116,8 @@
 		496BDEEC257DF683002830CA /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		496BDEF1257DF6DA002830CA /* Configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
 		496BDEFA257DFD2D002830CA /* CountersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersManager.swift; sourceTree = "<group>"; };
+		496BDF49257F5862002830CA /* General.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = General.strings; sourceTree = "<group>"; };
+		496BDF4E257F5CD2002830CA /* UIAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertAction.swift; sourceTree = "<group>"; };
 		49B5FF84257D35E2001AD061 /* CreateCounterExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCounterExampleViewController.swift; sourceTree = "<group>"; };
 		49B5FF85257D35E2001AD061 /* CreateCounterExampleViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateCounterExampleViewController.xib; sourceTree = "<group>"; };
 		49B5FFA4257D38B4001AD061 /* CounterCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCollectionTableViewCell.swift; sourceTree = "<group>"; };
@@ -384,6 +388,7 @@
 				49FFAF2D2579C08900808421 /* UIBarButtonItem.swift */,
 				49FFAF382579DD2F00808421 /* UITableViewCell.swift */,
 				49B5FFB5257D4CDC001AD061 /* UICollectionViewCell.swift */,
+				496BDF4E257F5CD2002830CA /* UIAlertAction.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -397,6 +402,7 @@
 				49FFAF252579BC3F00808421 /* Counters.strings */,
 				494D7A2F257AFA2B00F664B2 /* CounterCreate.strings */,
 				496BDEDB257DC372002830CA /* CreateCounterExample.strings */,
+				496BDF49257F5862002830CA /* General.strings */,
 			);
 			path = AppString;
 			sourceTree = "<group>";
@@ -558,6 +564,7 @@
 				494D7A3D257B1B6A00F664B2 /* Icons.xcassets in Resources */,
 				49FFAF262579BC3F00808421 /* Counters.strings in Resources */,
 				49B5FFA7257D38B4001AD061 /* CounterCollectionTableViewCell.xib in Resources */,
+				496BDF4A257F5862002830CA /* General.strings in Resources */,
 				49F557632578ACC70036F1D2 /* SF-Pro-Display-Thin.otf in Resources */,
 				49F5575A2578ACC60036F1D2 /* SF-Pro-Display-Bold.otf in Resources */,
 				49B5FF87257D35E2001AD061 /* CreateCounterExampleViewController.xib in Resources */,
@@ -596,6 +603,7 @@
 			files = (
 				493416C025774ED600FD57FF /* AppDelegate.swift in Sources */,
 				49F557B12578B7110036F1D2 /* Localized.swift in Sources */,
+				496BDF4F257F5CD2002830CA /* UIAlertAction.swift in Sources */,
 				49B5FFC0257D5422001AD061 /* CreateCounterExampleViewModel.swift in Sources */,
 				494D7A62257B409F00F664B2 /* ResultView.swift in Sources */,
 				49FFAF052579477F00808421 /* UILabel.swift in Sources */,

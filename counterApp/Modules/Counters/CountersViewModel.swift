@@ -17,14 +17,17 @@ protocol ICountersViewModel: class {
     var counters: [Counter] { get }
     var loadComplete: ((LoadResponse) -> ())? { get set }
     var dismissLoading: (()->())? { get set }
+    var failedCounterUpdate: (()->())? { get set }
     
     func doLoadCounter()
     func reloadCounters()
     func doCreateCounter(counter:  CounterRequest)
+    func doIncrementCounter(counter: CounterRequest)
+    func doDecrementCounter(counter: CounterRequest)
 }
 
 class CountersViewModel: ICountersViewModel {
-    
+    var failedCounterUpdate: (() -> ())?
     var dismissLoading: (() -> ())?
     var counters: [Counter]
     var loadComplete: ((LoadResponse) -> ())?
@@ -57,6 +60,24 @@ class CountersViewModel: ICountersViewModel {
             self.bindResponse(from: counters)
         } onError: { error in
             self.loadComplete?(.error)
+        }
+    }
+    
+    func doDecrementCounter(counter: CounterRequest) {
+        manager.requestCounter(counter, actionType: .decrement) { counters in
+            self.failedCounterUpdate?()
+            self.bindResponse(from: counters)
+        } onError: { error in
+            self.failedCounterUpdate?()
+        }
+
+    }
+    
+    func doIncrementCounter(counter: CounterRequest) {
+        manager.requestCounter(counter, actionType: .increment) { counters in
+            self.bindResponse(from: counters)
+        } onError: { error in
+            self.failedCounterUpdate?()
         }
     }
     

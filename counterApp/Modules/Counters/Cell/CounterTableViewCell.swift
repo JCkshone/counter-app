@@ -13,6 +13,10 @@ class CounterTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionItem: UILabel!
     @IBOutlet weak var checkBtn: UIButton!
     @IBOutlet weak var leadingContraint: NSLayoutConstraint!
+    @IBOutlet weak var stepper: UIStepper!
+    
+    var stepperIncrement: ((Counter) -> ())?
+    var stepperDecrement: ((Counter) -> ())?
     
     var isEditMode: Bool = false {
         didSet {
@@ -40,17 +44,41 @@ class CounterTableViewCell: UITableViewCell {
         didSet {
             descriptionItem.text = model.title
             quantity.text = "\(model.count ?? 0)"
+            stepper.value = Double(model.count ?? 0)
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         quantity.textColor = .primaryOrange
+        setEvents()
     }
     
     override func prepareForReuse() {
         quantity.text = ""
         descriptionItem.text = ""
+    }
+    
+    
+    
+    private func setEvents() {
+        checkBtn.addAction(for: .touchUpInside) {
+            self.isItemSelect = !self.isItemSelect
+        }
+        
+        stepper.addAction(for: .valueChanged) {
+            self.stepperHanblerdExec()
+            self.quantity.text = "\(Int(self.stepper.value))"
+        }
+    }
+    
+    private func stepperHanblerdExec() {
+        if  Int(stepper.value) > Int(quantity.text ?? "") ?? 0 {
+            stepperIncrement?(model)
+            return
+        }
+        
+        stepperDecrement?(model)
     }
     
 }

@@ -70,7 +70,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3lu-fK-RSZ">
                                         <rect key="frame" x="0.0" y="40" width="216" height="40"/>
                                         <subviews>
-                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="yVb-NO-Ec9">
+                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="yVb-NO-Ec9">
                                                 <rect key="frame" x="115" y="1" width="94" height="32"/>
                                             </stepper>
                                         </subviews>
@@ -132,6 +132,7 @@
                 <outlet property="descriptionItem" destination="sra-is-AT0" id="pTe-xy-3D3"/>
                 <outlet property="leadingContraint" destination="AfE-PI-5mw" id="MeT-aW-o9Z"/>
                 <outlet property="quantity" destination="vCc-Op-QBM" id="hwN-eD-YGc"/>
+                <outlet property="stepper" destination="yVb-NO-Ec9" id="CVN-fs-sSl"/>
             </connections>
             <point key="canvasLocation" x="-66.666666666666671" y="126.89732142857142"/>
         </tableViewCell>

@@ -60,6 +60,16 @@ extension CreateCounterViewController {
             DispatchQueue.main.async {
                 self.coordinator?.goBack()
             }
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.showAlert(title: CounterConstants.CounterCreate.createError.localized(usingFile: StringFiles.counterCrete),
+                           messages: CounterConstants.General.errorConnection.localized(usingFile: StringFiles.general),
+                           dismiss:  { _ in
+                            self.coordinator?.goBack()
+            })
+            
         }
     }
 }

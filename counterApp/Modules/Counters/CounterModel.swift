@@ -12,6 +12,7 @@ struct Counter: Codable {
     var id: String? = nil
     var title: String? = nil
     var count: Int? = nil
+    var isSelect: Bool? = nil
 }
 
 struct CounterRequest: Codable {

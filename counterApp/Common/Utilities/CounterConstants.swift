@@ -18,6 +18,14 @@ struct CounterConstants {
             static let dec = "dec"
         }
     }
+    
+    struct General {
+        static let dismiss = "dismiss"
+        static let errorDelete = "error_delete"
+        static let errorConnection = "error_connection"
+        static let delete = "delete"
+        static let errorUpdate = "error_update";
+    }
     struct Welcome {
         static let continueText = "continue"
         static let titleWord = "title_word"
@@ -45,6 +53,7 @@ struct CounterConstants {
         static let save = "save"
         static let counterPlaceholder = "counter_placeholder"
         static let underlineExamples = "underline_examples"
+        static let createError = "create_error"
     }
     
     struct CreateCounterExample {

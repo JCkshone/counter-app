@@ -94,7 +94,7 @@ extension BaseViewController {
     private func setCounterItemsBar(isAvailable: Bool) {
         let edit = CounterConstants.Counters.edit.localized(usingFile: StringFiles.counters)
         setItemsBar(leftAvailable: isAvailable, leftItemTitle: edit)
-       
+        
     }
     private func setCreateItemsBar(isCreateMode: Bool) {
         let cancel = CounterConstants.CounterCreate.cancel.localized(usingFile: StringFiles.counterCrete)
@@ -129,5 +129,31 @@ extension BaseViewController {
     func showShareActivity(title: String) {
         let ac = UIActivityViewController(activityItems: [title], applicationActivities: nil)
         present(ac, animated: true)
+    }
+    
+    func showAlert(title: String,
+                   messages: String,
+                   successBtnTitle: String = "",
+                   style: UIAlertController.Style = .alert,
+                   successBtnStyle: UIAlertAction.Style = .default,
+                   success: ((UIAlertAction) -> Void)? = nil,
+                   dismiss: ((UIAlertAction) -> Void)? = nil) {
+        
+        let alert = UIAlertController(title: title, message: messages, preferredStyle: style)
+        let successAction = UIAlertAction(title: successBtnTitle, style: successBtnStyle, handler: success)
+        
+        if successBtnStyle != .destructive {
+           let _ = successAction.changeTextColor()
+        }
+        if !successBtnTitle.isEmpty {
+            alert.addAction(successAction)
+        }
+        
+        alert.addAction(UIAlertAction(title: CounterConstants.General.dismiss.localized(usingFile: StringFiles.general),
+                                      style: .destructive,
+                                      handler: dismiss).changeTextColor())
+        
+        
+        self.present(alert, animated: true)
     }
 }

@@ -1,0 +1,13 @@
+/* 
+  General.strings
+  counterApp
+
+  Created by Juan Camilo on 8/12/20.
+  
+*/
+
+"dismiss" = "Dismiss";
+"error_delete" = "Couldn’t delete the counter “%@”";
+"error_connection" = "The Internet connection appears to be offline.";
+"delete" = "Delete %d counter";
+"error_update" = "Couldn’t update the “%@” counter to %d";
