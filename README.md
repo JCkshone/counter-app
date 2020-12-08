@@ -6,3 +6,7 @@ Change BASE URL in **Configuration.plist** whit local machine ip address that ex
 
 ## Unit test
 Counter app has unit test for validate Counter endpoints, it's test execute a fake manager with viewmodel interaction
+* Create counter
+* Increment counter
+* Decrement counter
+* Get all counters
