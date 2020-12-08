@@ -8,12 +8,9 @@
 import Foundation
 
 protocol ICountersManager {
-    func getAllCounters(completion: @escaping ([Counter]) -> (), onError: @escaping (APIServiceError) -> ())
-    func requestCounter(request: CounterRequest, completion: @escaping (Bool) -> (), onError: @escaping (APIServiceError) -> ())
-    func createCounter(request: CounterRequest, completion: @escaping (Bool) -> (), onError: @escaping (APIServiceError) -> ())
-    func deleteCounter(request: CounterRequest, completion: @escaping (Bool) -> (), onError: @escaping (APIServiceError) -> ())
-    func incrementCounter(request: CounterRequest, completion: @escaping (Bool) -> (), onError: @escaping (APIServiceError) -> ())
-    func decrementCounter(request: CounterRequest, completion: @escaping (Bool) -> (), onError: @escaping (APIServiceError) -> ())
+    func requestCounter(_ counter: CounterRequest, actionType: CounterAction,
+                        completion: @escaping ([Counter]) -> (),
+                        onError: @escaping (APIServiceError) -> ())
 }
 
 enum CounterAction {
@@ -27,84 +24,42 @@ enum CounterAction {
 
 
 class CountersManager: ICountersManager {
-
+    
     let networkHelper = NetworkServices()
     
-    func getAllCounters(completion: @escaping ([Counter]) -> (),
+    func requestCounter(_ counter: CounterRequest, actionType: CounterAction, completion: @escaping ([Counter]) -> (),
                         onError: @escaping (APIServiceError) -> ()) {
-        let path = CounterConstants.Url.Path.counters
+        var path = "\(CounterConstants.Url.Path.counter)"
         
-        networkHelper.get(type: [Counter].self, aditionalPath: path) { response in
+        switch actionType {
+        case .get:
+            path = "/\(CounterConstants.Url.Path.counters)"
+        case .increment:
+            path += "/\(CounterConstants.Url.Path.inc)"
+        case .decrement:
+            path += "/\(CounterConstants.Url.Path.dec)"
+        default:
+            break
+        }
+        
+        if actionType == .get {
+            networkHelper.get(type: [Counter].self, aditionalPath: path) { response in
+                switch response {
+                case .success(let data):
+                    completion(data)
+                case .failure(let error):
+                    onError(error)
+                }
+            }
+            return
+        }
+        
+        networkHelper.counterAction(data: counter,
+                                    aditionalPath: path,
+                                    httpMethod: actionType == .delete ? .delete : .post) { (response) in
             switch response {
             case .success(let data):
                 completion(data)
-            case .failure(let error):
-                onError(error)
-            }
-        }
-    }
-    
-    func requestCounter(request: CounterRequest, completion: @escaping (Bool) -> (),
-                       onError: @escaping (APIServiceError) -> ()) {
-        let path = "\(CounterConstants.Url.Path.counter)"
-        
-        networkHelper.counterAction(data: request, aditionalPath: path) { (response) in
-            switch response {
-            case .success(_):
-                completion(true)
-            case .failure(let error):
-                onError(error)
-            }
-        }
-    }
-    
-    func createCounter(request: CounterRequest, completion: @escaping (Bool) -> (),
-                       onError: @escaping (APIServiceError) -> ()) {
-        let path = "\(CounterConstants.Url.Path.counter)"
-        
-        networkHelper.counterAction(data: request, aditionalPath: path) { (response) in
-            switch response {
-            case .success(_):
-                completion(true)
-            case .failure(let error):
-                onError(error)
-            }
-        }
-    }
-    
-    func incrementCounter(request: CounterRequest, completion: @escaping (Bool) -> (), onError: @escaping (APIServiceError) -> ()) {
-        let path = "\(CounterConstants.Url.Path.counter)"
-        
-        networkHelper.counterAction(data: request, aditionalPath: path) { response in
-            switch response {
-            case .success(_):
-                completion(true)
-            case .failure(let error):
-                onError(error)
-            }
-        }
-    }
-    
-    func decrementCounter(request: CounterRequest, completion: @escaping (Bool) -> (), onError: @escaping (APIServiceError) -> ()) {
-        let path = "\(CounterConstants.Url.Path.counter)/\(CounterConstants.Url.Path.dec)"
-        
-        networkHelper.counterAction(data: request, aditionalPath: path) { response in
-            switch response {
-            case .success(_):
-                completion(true)
-            case .failure(let error):
-                onError(error)
-            }
-        }
-    }
-    
-    func deleteCounter(request: CounterRequest, completion: @escaping (Bool) -> (), onError: @escaping (APIServiceError) -> ()) {
-        let path = "\(CounterConstants.Url.Path.counter)"
-        
-        networkHelper.counterAction(data: request, aditionalPath: path, httpMethod: .delete) { response in
-            switch response {
-            case .success(_):
-                completion(true)
             case .failure(let error):
                 onError(error)
             }

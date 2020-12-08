@@ -37,9 +37,8 @@ class CountersViewModel: ICountersViewModel {
     }
     
     func doLoadCounter() {
-        manager.getAllCounters { counters in
-            self.counters = counters.filter { !($0.title ?? "").isEmpty }
-            self.loadComplete?(counters.isEmpty ? .empty : .success)
+        manager.requestCounter(CounterRequest(), actionType: .get) { counters in
+            self.bindResponse(from: counters)
             if self.isReload {
                 self.dismissLoading?()
             }
@@ -54,12 +53,16 @@ class CountersViewModel: ICountersViewModel {
     }
     
     func doCreateCounter(counter: CounterRequest) {
-        manager.createCounter(counter: counter) { response in
-            self.loadComplete?(response ? .success : .error)
+        manager.requestCounter(counter, actionType: .create) { counters in
+            self.bindResponse(from: counters)
         } onError: { error in
             self.loadComplete?(.error)
         }
-
+    }
+    
+    func bindResponse(from counters: [Counter]) {
+        self.counters = counters.filter { !($0.title ?? "").isEmpty }
+        self.loadComplete?(counters.isEmpty ? .empty : .success)
     }
     
 }

@@ -59,6 +59,7 @@ extension CountersViewController {
     
     func loadCounters() {
         loader.isHidden = false
+        resultView.isHidden = true
         viewModel?.doLoadCounter()
     }
     
