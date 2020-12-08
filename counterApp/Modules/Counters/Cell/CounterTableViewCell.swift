@@ -17,6 +17,7 @@ class CounterTableViewCell: UITableViewCell {
     
     var stepperIncrement: ((Counter) -> ())?
     var stepperDecrement: ((Counter) -> ())?
+    var itemSelect: ((Counter, Bool) -> ())?
     
     var isEditMode: Bool = false {
         didSet {
@@ -60,10 +61,10 @@ class CounterTableViewCell: UITableViewCell {
     }
     
     
-    
     private func setEvents() {
         checkBtn.addAction(for: .touchUpInside) {
             self.isItemSelect = !self.isItemSelect
+            self.itemSelect?(self.model, self.isItemSelect)
         }
         
         stepper.addAction(for: .valueChanged) {

@@ -24,6 +24,10 @@ protocol ICountersViewModel: class {
     func doCreateCounter(counter:  CounterRequest)
     func doIncrementCounter(counter: CounterRequest)
     func doDecrementCounter(counter: CounterRequest)
+    func counterSelect(counter: Counter)
+    func counterDeSelected(counter: Counter)
+    func selectAllCounters(_ select: Bool)
+    func doRemoveCounters()
 }
 
 class CountersViewModel: ICountersViewModel {
@@ -33,10 +37,12 @@ class CountersViewModel: ICountersViewModel {
     var loadComplete: ((LoadResponse) -> ())?
     var manager: ICountersManager
     var isReload = false
+    var counterForActions: [Counter]
     
     init(manager: ICountersManager = CountersManager()) {
         self.manager = manager
         counters = []
+        counterForActions = []
     }
     
     func doLoadCounter() {
@@ -81,9 +87,43 @@ class CountersViewModel: ICountersViewModel {
         }
     }
     
+    func counterSelect(counter: Counter) {
+        counterForActions.append(counter)
+    }
+    
+    func selectAllCounters(_ select: Bool) {
+        if select {
+            counterForActions = counters
+            return
+        }
+        counterForActions.removeAll()
+    }
+    
+    func counterDeSelected(counter: Counter) {
+        let index = counterForActions.firstIndex { $0.id == counter.id }
+        if let index = index {
+            counterForActions.remove(at: index)
+        }
+    }
+    
+    
     func bindResponse(from counters: [Counter]) {
         self.counters = counters.filter { !($0.title ?? "").isEmpty }
         self.loadComplete?(counters.isEmpty ? .empty : .success)
+    }
+    
+    func doRemoveCounters() {
+        for item in counterForActions {
+            removeCounter(from: CounterRequest(id: item.id))
+        }
+    }
+    
+    private func removeCounter(from counter: CounterRequest) {
+        manager.requestCounter(counter, actionType: .delete) { counters in
+            self.bindResponse(from: counters)
+        } onError: { error in
+            self.failedCounterUpdate?()
+        }
     }
     
 }

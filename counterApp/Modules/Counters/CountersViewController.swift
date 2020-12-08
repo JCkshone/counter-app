@@ -23,6 +23,7 @@ class CountersViewController: BaseViewController {
     @IBOutlet weak var counterInfo: UILabel!
     @IBOutlet weak var contentEmpty: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var cleanBtn: UIButton!
     
     var viewModel: ICountersViewModel?
     var refreshControl: UIRefreshControl!
@@ -101,6 +102,10 @@ extension CountersViewController {
             if self.tableViewMode == .edit {
                 self.changeTableViewMode()
             }
+        }
+        
+        cleanBtn.addAction(for: .touchUpInside) {
+            self.viewModel?.doRemoveCounters()
         }
         
         viewModel?.loadComplete = { [weak self] response in
@@ -256,6 +261,14 @@ extension CountersViewController: UITableViewDelegate, UITableViewDataSource {
             self.counterUpdate = model
             self.viewModel?.doDecrementCounter(counter: CounterRequest(id: model.id ?? ""))
         }
+        
+        cellView.itemSelect = { [unowned self] (model, isSelect) in
+            if isSelect {
+                self.viewModel?.counterSelect(counter: model)
+                return
+            }
+            self.viewModel?.counterDeSelected(counter: model)
+        }
         return cellView
     }
 }
@@ -264,11 +277,13 @@ extension CountersViewController: UITableViewDelegate, UITableViewDataSource {
 extension CountersViewController: BaseViewControllerDelegate {
     func leftBarItemTapped() {
         isSelectAllItems = false
+        viewModel?.selectAllCounters(false)
         changeTableViewMode()
     }
     
     func rightBarItemTapped() {
         isSelectAllItems = true
         tableView.reloadData()
+        viewModel?.selectAllCounters(true)
     }
 }

@@ -16,6 +16,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CountersViewController" customModule="counterApp" customModuleProvider="target">
             <connections>
                 <outlet property="addBtn" destination="kmz-tB-v5M" id="2bb-oy-o08"/>
+                <outlet property="cleanBtn" destination="ddI-Mv-RwP" id="B8t-be-7w6"/>
                 <outlet property="contentEditActions" destination="sI9-zZ-co2" id="IfF-EX-ohe"/>
                 <outlet property="contentEmpty" destination="bfv-NP-xlf" id="3Ch-fY-B4N"/>
                 <outlet property="contentInfoAdd" destination="xig-zA-mVT" id="FTU-pV-PZT"/>
