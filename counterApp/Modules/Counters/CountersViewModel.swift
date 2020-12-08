@@ -16,6 +16,7 @@ enum LoadResponse {
 protocol ICountersViewModel: class {
     var counters: [Counter] { get }
     var loadComplete: ((LoadResponse) -> ())? { get set }
+    var filterComplete: (() -> ())? { get set }
     var dismissLoading: (()->())? { get set }
     var failedCounterUpdate: (()->())? { get set }
     
@@ -28,9 +29,11 @@ protocol ICountersViewModel: class {
     func counterDeSelected(counter: Counter)
     func selectAllCounters(_ select: Bool)
     func doRemoveCounters()
+    func filter(from value: String)
 }
 
 class CountersViewModel: ICountersViewModel {
+    var filterComplete: (() -> ())?
     var failedCounterUpdate: (() -> ())?
     var dismissLoading: (() -> ())?
     var counters: [Counter]
@@ -38,15 +41,18 @@ class CountersViewModel: ICountersViewModel {
     var manager: ICountersManager
     var isReload = false
     var counterForActions: [Counter]
+    lazy var countersRecovery: [Counter] = []
     
     init(manager: ICountersManager = CountersManager()) {
         self.manager = manager
+        
         counters = []
         counterForActions = []
     }
     
     func doLoadCounter() {
         manager.requestCounter(CounterRequest(), actionType: .get) { counters in
+            self.countersRecovery  = counters
             self.bindResponse(from: counters)
             if self.isReload {
                 self.dismissLoading?()
@@ -63,6 +69,7 @@ class CountersViewModel: ICountersViewModel {
     
     func doCreateCounter(counter: CounterRequest) {
         manager.requestCounter(counter, actionType: .create) { counters in
+            self.countersRecovery  = counters
             self.bindResponse(from: counters)
         } onError: { error in
             self.loadComplete?(.error)
@@ -71,16 +78,17 @@ class CountersViewModel: ICountersViewModel {
     
     func doDecrementCounter(counter: CounterRequest) {
         manager.requestCounter(counter, actionType: .decrement) { counters in
-            self.failedCounterUpdate?()
+            self.countersRecovery  = counters
             self.bindResponse(from: counters)
         } onError: { error in
             self.failedCounterUpdate?()
         }
-
+        
     }
     
     func doIncrementCounter(counter: CounterRequest) {
         manager.requestCounter(counter, actionType: .increment) { counters in
+            self.countersRecovery  = counters
             self.bindResponse(from: counters)
         } onError: { error in
             self.failedCounterUpdate?()
@@ -116,6 +124,13 @@ class CountersViewModel: ICountersViewModel {
         for item in counterForActions {
             removeCounter(from: CounterRequest(id: item.id))
         }
+    }
+    
+    func filter(from value: String) {
+        self.counters = value.isEmpty ? self.countersRecovery : countersRecovery.filter { ($0.title ?? "")
+                .lowercased()
+                .contains(value.lowercased())}
+        self.filterComplete?()
     }
     
     private func removeCounter(from counter: CounterRequest) {

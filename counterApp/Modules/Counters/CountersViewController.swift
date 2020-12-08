@@ -25,6 +25,19 @@ class CountersViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var cleanBtn: UIButton!
     
+    var emptyResult: UILabel = {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width,
+                                          height: UIScreen.main.bounds.size.height / 2))
+        label.text = CounterConstants.General.noResults.localized(usingFile: StringFiles.general)
+        label.textColor = .darkSilver
+        label.textAlignment = .center
+        
+        if let font = UIFont(name: CounterConstants.Font.regular, size: 20) {
+            label.font = font
+        }
+        return label
+    }()
+    
     var viewModel: ICountersViewModel?
     var refreshControl: UIRefreshControl!
     var coordinator: MainCoordinator?
@@ -127,6 +140,13 @@ extension CountersViewController {
             DispatchQueue.main.async {
                 self.loader.isHidden = true
                 self.showErrorUpdate()
+            }
+        }
+        
+        viewModel?.filterComplete = { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
         
@@ -235,13 +255,17 @@ extension CountersViewController {
 // MARK: - Search bar events
 extension CountersViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        viewModel?.filter(from: searchController.searchBar.text ?? "")
     }
 }
 
 // MARK: - Table view events
 extension CountersViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel?.counters.count ?? 0
+        DispatchQueue.main.async {
+            self.tableView.tableFooterView = self.viewModel?.counters.isEmpty ?? false ? self.emptyResult: UIView()
+        }
+        return viewModel?.counters.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

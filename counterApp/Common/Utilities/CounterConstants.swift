@@ -24,7 +24,8 @@ struct CounterConstants {
         static let errorDelete = "error_delete"
         static let errorConnection = "error_connection"
         static let delete = "delete"
-        static let errorUpdate = "error_update";
+        static let errorUpdate = "error_update"
+        static let noResults = "no_results"
     }
     struct Welcome {
         static let continueText = "continue"
