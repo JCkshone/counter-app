@@ -24,6 +24,26 @@ class Counters: XCTestCase {
         super.tearDown()
     }
     
+    func testAddCounter() {
+        let exp = expectation(description: "Add new counter")
+        var loadResponse: LoadResponse = .success
+        
+        viewModel.loadComplete = { response in
+            loadResponse = response
+            exp.fulfill()
+        }
+        
+        viewModel.doCreateCounter(counter: CounterRequest(title: "Prueba"))
+        
+        waitForExpectations(timeout: 5) { error in
+            if let error = error {
+                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+            }
+            XCTAssertEqual(loadResponse, .success, "Error to remove counter")
+            XCTAssertTrue(!self.viewModel.counters.isEmpty)
+        }
+    }
+    
     
     func testGetCounters() {
         let exp = expectation(description: "Get all counters")
@@ -69,10 +89,10 @@ class Counters: XCTestCase {
     func testRemoveCounter() {
         let exp = expectation(description: "Remove counter")
         var loadResponse: LoadResponse = .success
-        let newResponse = [Counter(id: "abc123",
+        let newResponse = [Counter(id: UUID().uuidString,
                                    title: "Prueba",
                                    count: 0),
-                           Counter(id: "abcx",
+                           Counter(id: UUID().uuidString,
                                    title: "Prueba2",
                                    count: 0)]
         
@@ -98,6 +118,52 @@ class Counters: XCTestCase {
         }
     }
     
+    func testIncrementCounter() {
+        let exp = expectation(description: "Remove counter")
+        var loadResponse: LoadResponse = .success
+        manager.response = [Counter(id: UUID().uuidString,
+                                   title: "Prueba",
+                                   count: 0)]
+
+        viewModel.loadComplete = { response in
+            loadResponse = response
+            exp.fulfill()
+        }
+        
+        viewModel.doIncrementCounter(counter: CounterRequest(id: manager.response?.first?.id ?? ""))
+        
+        waitForExpectations(timeout: 5) { error in
+            if let error = error {
+                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+            }
+            XCTAssertEqual(loadResponse, .success, "Error to remove counter")
+            XCTAssertTrue(self.viewModel.counters.first?.count ?? 0 > 0)
+        }
+    }
+    
+    func testDecrementCounter() {
+        let exp = expectation(description: "Remove counter")
+        var loadResponse: LoadResponse = .success
+        manager.response = [Counter(id: UUID().uuidString,
+                                   title: "Prueba",
+                                   count: 1)]
+
+        viewModel.loadComplete = { response in
+            loadResponse = response
+            exp.fulfill()
+        }
+        
+        viewModel.doDecrementCounter(counter: CounterRequest(id: manager.response?.first?.id ?? ""))
+        
+        waitForExpectations(timeout: 5) { error in
+            if let error = error {
+                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+            }
+            XCTAssertEqual(loadResponse, .success, "Error to remove counter")
+            XCTAssertTrue(self.viewModel.counters.first?.count ?? 0 == 0)
+        }
+    }
+    
 }
 
 fileprivate class FakeCounterManager: ICountersManager {
@@ -114,6 +180,12 @@ fileprivate class FakeCounterManager: ICountersManager {
         switch actionType {
         case .delete:
             removeCounter(counter: CounterRequest(id: counter.id))
+        case .create:
+            addCounter(counter: counter)
+        case .decrement:
+            decrementCounter(counter: counter)
+        case .increment:
+            incrementCounter(counter: counter)
         default:
             break
         }
@@ -126,6 +198,25 @@ fileprivate class FakeCounterManager: ICountersManager {
         if let index = index {
             response?.remove(at: index)
         }
+    }
+    
+    func incrementCounter(counter: CounterRequest) {
+        let index = response?.firstIndex { $0.id == counter.id }
+        if let index = index, let count = response?[index].count {
+            response?[index].count = count + 1
+        }
+    }
+    
+    func decrementCounter(counter: CounterRequest) {
+        let index = response?.firstIndex { $0.id == counter.id }
+        if let index = index, let count = response?[index].count {
+            response?[index].count = count - 1
+        }
+    }
+    
+    func addCounter(counter: CounterRequest) {
+        response?.append(Counter(id: UUID().uuidString,
+                                 title: counter.title, count: 0))
     }
 }
 
