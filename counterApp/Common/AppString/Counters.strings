@@ -17,3 +17,4 @@
 "description_failed_load" = "The Internet connection appears to\nbe offline.";
 "retry" = "Retry";
 "quantity_items_information" = "%d items . Counted %d times";
+"delete_counts" = "Delete %d counter";

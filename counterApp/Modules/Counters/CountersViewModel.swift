@@ -15,6 +15,7 @@ enum LoadResponse {
 
 protocol ICountersViewModel: class {
     var counters: [Counter] { get }
+    var counterForActions: [Counter] { get }
     var loadComplete: ((LoadResponse) -> ())? { get set }
     var filterComplete: (() -> ())? { get set }
     var dismissLoading: (()->())? { get set }
@@ -42,6 +43,7 @@ class CountersViewModel: ICountersViewModel {
     var isReload = false
     var counterForActions: [Counter]
     lazy var countersRecovery: [Counter] = []
+    lazy var itemDeletes: Int = 0
     
     init(manager: ICountersManager = CountersManager()) {
         self.manager = manager
@@ -135,7 +137,11 @@ class CountersViewModel: ICountersViewModel {
     
     private func removeCounter(from counter: CounterRequest) {
         manager.requestCounter(counter, actionType: .delete) { counters in
-            self.bindResponse(from: counters)
+            self.itemDeletes += 1
+            if self.itemDeletes >= self.counterForActions.count {
+                self.itemDeletes  = 0
+                self.bindResponse(from: counters)
+            }
         } onError: { error in
             self.failedCounterUpdate?()
         }

@@ -131,11 +131,13 @@ extension BaseViewController {
         present(ac, animated: true)
     }
     
-    func showAlert(title: String,
-                   messages: String,
+    func showAlert(title: String? = nil,
+                   messages: String? = nil,
                    successBtnTitle: String = "",
+                   dismissBtnTitle: String = CounterConstants.General.dismiss.localized(usingFile: StringFiles.general),
                    style: UIAlertController.Style = .alert,
                    successBtnStyle: UIAlertAction.Style = .default,
+                   dismissBtnStyle: UIAlertAction.Style = .destructive,
                    success: ((UIAlertAction) -> Void)? = nil,
                    dismiss: ((UIAlertAction) -> Void)? = nil) {
         
@@ -149,8 +151,8 @@ extension BaseViewController {
             alert.addAction(successAction)
         }
         
-        alert.addAction(UIAlertAction(title: CounterConstants.General.dismiss.localized(usingFile: StringFiles.general),
-                                      style: .destructive,
+        alert.addAction(UIAlertAction(title: dismissBtnTitle,
+                                      style: dismissBtnStyle,
                                       handler: dismiss).changeTextColor())
         
         

@@ -93,6 +93,7 @@ extension CountersViewController {
     
     func setupEvents() {
         addBtn.addAction(for: .touchUpInside) {
+            self.changeTableViewMode()
             self.coordinator?.goToCounterCreate()
         }
         
@@ -118,7 +119,7 @@ extension CountersViewController {
         }
         
         cleanBtn.addAction(for: .touchUpInside) {
-            self.viewModel?.doRemoveCounters()
+            self.showAlertDelete()
         }
         
         viewModel?.loadComplete = { [weak self] response in
@@ -153,6 +154,16 @@ extension CountersViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.viewModel?.doLoadCounter()
         }
+    }
+    
+    func showAlertDelete() {
+        let cancelTitle = CounterConstants.CounterCreate.cancel.localized(usingFile: StringFiles.counterCrete)
+        let successTitle = CounterConstants.Counters.deleteCounts.localized(usingFile: StringFiles.counters)
+        let success = String(format: successTitle, isSelectAllItems ? viewModel?.counters.count ?? 0 : viewModel?.counterForActions.count ?? 0)
+        
+        showAlert(successBtnTitle: success, dismissBtnTitle: cancelTitle,  style: .actionSheet, successBtnStyle: .destructive, dismissBtnStyle: .cancel, success: { _ in
+            self.viewModel?.doRemoveCounters()
+        }, dismiss: nil)
     }
     
     func showErrorUpdate() {
@@ -214,6 +225,7 @@ extension CountersViewController {
     }
     
     func showSuccess() {
+        self.resultView.alpha = 0
         self.contentEmpty.isHidden = true
         self.tableView.isHidden = false
     }
@@ -221,8 +233,12 @@ extension CountersViewController {
     func showError(isEmptyError: Bool = false) {
         setupResult(isErrorNetwork: isEmptyError)
         UIView.animate(withDuration: 0.4) {
+            self.contentEmpty.isHidden = false
             self.loader.isHidden = true
             self.resultView.isHidden = false
+            self.resultView.alpha = 1
+            self.contentEditActions.isHidden = true
+            self.contentInfoAdd.isHidden = false
         }
     }
     
@@ -287,6 +303,7 @@ extension CountersViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cellView.itemSelect = { [unowned self] (model, isSelect) in
+            self.isSelectAllItems = false
             if isSelect {
                 self.viewModel?.counterSelect(counter: model)
                 return

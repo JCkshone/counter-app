@@ -219,4 +219,3 @@ fileprivate class FakeCounterManager: ICountersManager {
                                  title: counter.title, count: 0))
     }
 }
-

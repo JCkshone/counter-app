@@ -45,6 +45,7 @@ struct CounterConstants {
         static let descriptionFailedLoad = "description_failed_load"
         static let retry = "retry"
         static let quantityItemsInformation = "quantity_items_information"
+        static let deleteCounts = "delete_counts"
     }
     
     struct CounterCreate {

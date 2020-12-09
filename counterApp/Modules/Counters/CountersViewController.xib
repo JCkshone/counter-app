@@ -51,7 +51,7 @@
                                 <constraint firstAttribute="height" constant="45" id="bCi-lI-Vck"/>
                             </constraints>
                         </activityIndicatorView>
-                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mYz-3g-Ckf" customClass="ResultView" customModule="counterApp" customModuleProvider="target">
+                        <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mYz-3g-Ckf" customClass="ResultView" customModule="counterApp" customModuleProvider="target">
                             <rect key="frame" x="36" y="309.5" width="342" height="150"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
