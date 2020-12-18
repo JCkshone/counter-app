@@ -93,7 +93,6 @@ extension CountersViewController {
     
     func setupEvents() {
         addBtn.addAction(for: .touchUpInside) {
-            self.changeTableViewMode()
             self.coordinator?.goToCounterCreate()
         }
         
