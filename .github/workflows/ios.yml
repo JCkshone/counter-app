@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
       - uses: actions/checkout@v3
       - uses: actions/create-outputs@v0.0.0-fake
-            id: test
+        id: test
       - uses: LouisBrunner/checks-action@v1.1.1
         if: always()
         with:
