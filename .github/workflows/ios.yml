@@ -46,5 +46,4 @@ jobs:
           token: ${{ secrets.SESSION }}
           name: Test XYZ
           conclusion: ${{ job.status }}
-          output: |
-          {"summary":${{ steps.test.outputs.summary }}}
+          output: ${{ steps.test.outputs.summary }}
