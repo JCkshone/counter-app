@@ -9,6 +9,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
+      - name: Validate Secrets
+        run: |
+          secret=${{ secrets.GITHUB_TOKEN }}
+          var_secret=${{ vars.SECRET_TOKEN }}
+          echo $secret
+          echo $var_secret
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set Default Scheme
@@ -40,10 +46,17 @@ jobs:
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
           xcodebuild test-without-building -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
       - name: Status
-        uses: LouisBrunner/checks-action@v1.1.1
+        uses: LouisBrunner/checks-action@v1.3.1
         if: always()
         with:
-          token: ${{ secrets.SESSION }}
+          sha: ${{ github.sha }}
+          token: ${{ steps.get_installation_token.outputs.token }}
+          #token: ${{ secrets.GITHUB_TOKEN }}
           name: Test XYZ
           conclusion: ${{ job.status }}
-          output: ${{ steps.test.outputs.summary }}
+          details_url: https://josh-ops.com/posts/github-code-coverage/
+          action_url: https://josh-ops.com/posts/github-code-coverage/
+          output: |
+            {"summary":""}
+          output_text_description_file: code-coverage-results.md
+          
