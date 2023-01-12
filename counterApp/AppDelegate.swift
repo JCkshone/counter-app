@@ -1,9 +1,5 @@
-//
-//  AppDelegate.swift
-//  counterApp
-//
-//  Created by Juan Camilo on 1/12/20.
-//
+
+
 
 import UIKit
 
