@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: Build and Test default scheme using any available iPhone simulator
+    name: Lulo Build and Test
     runs-on: macos-latest
 
     steps:
