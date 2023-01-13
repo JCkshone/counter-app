@@ -2,6 +2,15 @@ name: iOS_workflow
 
 on:
   workflow_dispatch:
+    inputs:
+      workflow-input-1:
+        description: 'workflow-input-1'
+        required: true
+        default: ''
+      workflow-input-2:
+        description: 'workflow-input-2'
+        required: true
+        default: ''
 
 jobs:
   build:
@@ -57,6 +66,6 @@ jobs:
           details_url: https://josh-ops.com/posts/github-code-coverage/
           action_url: https://josh-ops.com/posts/github-code-coverage/
           output: |
-            {"summary":""}
+            {"summary": ${{ steps.test.outputs.summary }}}
           output_text_description_file: code-coverage-results.md
           

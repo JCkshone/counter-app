@@ -1,22 +1,54 @@
-# This workflow will build a Swift project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
-
-name: Swift
+name: create deployment
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+  workflow_dispatch:
+  
 jobs:
-  build:
-
-    runs-on: macos-latest
-
+  create-deployment:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+    
+    - uses: tibdex/github-app-token@v1
+      id: get_installation_token
+      with: 
+        app_id: 170284
+        private_key: ${{ secrets.PRIVATE_KEY }}
+
+    - uses: LouisBrunner/checks-action@v1.3.1
+      id: check
+      with:
+        sha: ${{ github.sha }}
+        token: ${{ steps.get_installation_token.outputs.token }}
+        # token: ${{ github.token }}
+        name: Second Job
+        status: in_progress
+
+    - name: Trigger Workflow
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.actions.createWorkflowDispatch({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            workflow_id: 'ios.yml',
+            ref: '${{ github.head_ref }}',
+            inputs: {
+              "workflow-input-1": "value-1",
+              "workflow-input-2": "value-2",
+            }
+          })
+
+    - uses: LouisBrunner/checks-action@v1.3.1
+      if: failure()
+      with:
+        sha: ${{ github.sha }}
+        token: ${{ steps.get_installation_token.outputs.token }}
+        # token: ${{ github.token }}
+        name: Second Job
+        conclusion: ${{ job.status }}
+        details_url: https://josh-ops.com/posts/github-code-coverage/
+        action_url: https://josh-ops.com/posts/github-code-coverage/
+        output: |
+          {"summary":""}
+        output_text_description_file: code-coverage-results.md
