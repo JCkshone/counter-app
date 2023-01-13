@@ -18,7 +18,7 @@ jobs:
         run: |
           secret=${{ secrets.GITHUB_TOKEN }}
           var_secret=${{ vars.SECRET_TOKEN }}
-          var_validation='${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length' > "0"
+          var_validation='${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length' != "0"
           echo $secret
           echo $var_secret
           echo '${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length'
