@@ -50,8 +50,8 @@ jobs:
         if: always()
         with:
           sha: ${{ github.sha }}
-          token: ${{ steps.get_installation_token.outputs.token }}
-          #token: ${{ secrets.GITHUB_TOKEN }}
+          #token: ${{ steps.get_installation_token.outputs.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           name: Test XYZ
           conclusion: ${{ job.status }}
           details_url: https://josh-ops.com/posts/github-code-coverage/
