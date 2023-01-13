@@ -25,8 +25,6 @@ jobs:
           var_validation='${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length' -ne "0"
           echo $secret
           echo $var_secret
-          echo ${{ toJson(github.event) }}
-          echo 'the variable value is $var_validation'
       #- name: Checkout
       #  uses: actions/checkout@v3
       #- name: Set Default Scheme
