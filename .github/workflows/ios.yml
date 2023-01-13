@@ -18,6 +18,7 @@ jobs:
           var_secret=${{ vars.SECRET_TOKEN }}
           echo $secret
           echo $var_secret
+          echo '${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length'
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set Default Scheme
@@ -48,18 +49,4 @@ jobs:
           if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
           xcodebuild test-without-building -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
-      - name: Status
-        uses: LouisBrunner/checks-action@v1.3.1
-        if: always()
-        with:
-          sha: ${{ github.sha }}
-          #token: ${{ steps.get_installation_token.outputs.token }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: Test XYZ
-          conclusion: ${{ job.status }}
-          details_url: https://josh-ops.com/posts/github-code-coverage/
-          action_url: https://josh-ops.com/posts/github-code-coverage/
-          output: |
-            {"summary": ${{ steps.test.outputs.summary }}}
-          output_text_description_file: code-coverage-results.md
           
