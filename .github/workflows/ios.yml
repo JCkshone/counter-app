@@ -1,16 +1,10 @@
 name: iOS_workflow
 
 on:
-  workflow_dispatch:
-    inputs:
-      workflow-input-1:
-        description: 'workflow-input-1'
-        required: true
-        default: ''
-      workflow-input-2:
-        description: 'workflow-input-2'
-        required: true
-        default: ''
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
