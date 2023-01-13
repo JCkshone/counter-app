@@ -1,4 +1,4 @@
-name: create deployment
+name: ios_execution
 
 on:
   workflow_dispatch:
