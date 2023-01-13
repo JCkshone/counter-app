@@ -11,7 +11,7 @@ jobs:
   myJob:
     runs-on: ubuntu-latest
     steps:
-    - uses: luisrjaeger/approved-event-checker@v1.0.0
+    - uses: luisrjaeger/approved-event-checker@main
       id: approved
       with:
         approvals: 2
@@ -20,7 +20,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - run: echo "Approved !!"
       if: ${{ steps.approved.outputs.approved == 'true' }}
-      
+
   build:
     name: Lulo Build and Test
     runs-on: macos-latest
