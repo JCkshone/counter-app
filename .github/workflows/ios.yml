@@ -13,8 +13,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
+      - id: 'reviews'
+        uses: 'jrylan/github-action-reviews-counter@main'
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
       - name: Validate Secrets
-        if: ${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length > "0"
+        if: 'steps.reviews.outputs.approved >= 1 && steps.reviews.outputs.changes_requested == 0'
         run: |
           secret=${{ secrets.GITHUB_TOKEN }}
           var_secret=${{ vars.SECRET_TOKEN }}
