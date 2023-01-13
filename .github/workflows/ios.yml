@@ -14,13 +14,15 @@ jobs:
 
     steps:
       - name: Validate Secrets
-        if: ${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length > 0
+        if: ${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length > "0"
         run: |
           secret=${{ secrets.GITHUB_TOKEN }}
           var_secret=${{ vars.SECRET_TOKEN }}
+          var_validation=${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length > "0"
           echo $secret
           echo $var_secret
           echo '${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length'
+          echo $var_validation
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set Default Scheme
