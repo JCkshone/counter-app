@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    if: ${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length > 0
     name: Lulo Build and Test
     runs-on: macos-latest
 
